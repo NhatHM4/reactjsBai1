@@ -26,13 +26,31 @@ class MyComponent extends React.Component {
       age : this.state.age + parseInt(random)
     })
   }
+
+  handleOnChangeInput = (event)=>{
+    this.setState({
+      age :this.state.age + Math.floor((Math.random()*100) + 1)
+    })
+    let name =document.getElementById('name').value
+                this.setState({
+                  name : name
+                })
+  }
+
+
+  handleOnSubmit = (event)=>{
+    event.preventDefault()
+  }
+
   // JSX
   render() {
     return (
         <div>
             My name is {this.state.name} and age ${this.state.age}
-            <button onMouseOver={(event)=>this.handleOnMouseOver(event)}>Have me</button>
-            <button onClick={ () => {this.handleClick(this.state.age)}}>click me</button>
+            <form onSubmit={ (event) => this.handleOnSubmit(event)}>
+              <input id="name" type = "text" onChange={(event)=>{this.handleOnChangeInput(event)}}/>
+              <button >submit</button>
+            </form>
         </div>
     );
   }
