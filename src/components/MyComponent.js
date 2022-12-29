@@ -31,7 +31,7 @@ class MyComponent extends React.Component {
     this.setState({
       age :this.state.age + Math.floor((Math.random()*100) + 1)
     })
-    let name =document.getElementById('name').value
+    let name =event.target.value
                 this.setState({
                   name : name
                 })
