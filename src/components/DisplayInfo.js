@@ -1,4 +1,5 @@
 import React from "react";
+import './DisplayInfor.scss'
 
 class DisplayInfo extends React.Component{
 
@@ -31,11 +32,9 @@ class DisplayInfo extends React.Component{
        // destructuring array  
        const listUserNone = this.props.listUsers; 
         return(
-            <div>
-                
+            <div className="display-infro-container">
                 <button onClick={()=>this.handleShowUser()}>{this.state.isShowList ? "Ẩn hết" : "Hiện hết"}</button>
                 {
-
                 this.state.isShowList && <div>
                     {      
                     listUserNone.map((user)=> {
