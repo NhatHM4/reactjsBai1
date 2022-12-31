@@ -1,4 +1,23 @@
+.disabledbutton {
+  visibility: hidden;
+
+}
+
+.enablebutton {
+  visibility: visible;
+  
+}
+
+.red{
+  color : red;
+  }
+
+.green{
+  color: green;
+}
+
 body {
+  padding: 20px;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

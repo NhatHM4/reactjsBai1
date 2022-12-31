@@ -1,38 +1,57 @@
 import React from "react";
 
 class DisplayInfo extends React.Component{
+
+    state = {
+        isShowList : true,
+        listUserState : this.props.listUsers
+    }
     
-    showUser = (item) =>{
-        return (
-            <div>
-                My name is {item.name} and My age is {item.age}
-                <hr/>
-            </div>
-        )
+    handleShowUser = () =>{
+        this.setState({
+            isShowList : !this.state.isShowList
+        })
     }
 
+    handleShowUserElement = (indexReal) =>{
+        const changeUser = this.state.listUserState.map((item,index)=>{
+            if (indexReal === index){       
+                 item.flag = !item.flag
+                return item
+            } else {
+                return item;
+            }
+        })
+        this.setState({
+            listUserState : changeUser
+        })
+    }
     render(){
-       // destructuring array 
-       const {listUsers} = this.props
-       let testMap= listUsers.map((user) => this.showUser(user))
-       let testForEach= listUsers.forEach((user) => this.showUser(user))
-       console.log(testForEach)
+       // destructuring array     
         return(
             <div>
-                 {
-                   listUsers.map((user)=> {
+                <button onClick={()=>this.handleShowUser()}>{this.state.isShowList ? "Ẩn hết" : "Hiện hết"}</button>
+                {
+                    this.state.isShowList && <div>
+                    {
+                    this.state.listUserState.map((user, index)=> {
                         return (
-                            <div>
-                                My name is {user.name} and my age is {user.age}
-                                <hr/>
-                            </div>
-                        )
-                    })
-                 }
-
-                 {
-                    listUsers.map((user) => this.showUser(user))
-                 }
+                                <div key = {user.id}>   
+                                        <button onClick={()=>this.handleShowUserElement(index)}>{user.flag ? "Ẩn" : "Hiện"}</button>
+                                        {
+                                           user.flag && <div className={`${user.age>26?"red":"green"}`} >
+                                            <div>
+                                                My name is {user.name} and my age is {user.age}
+                                            </div>
+                                            <hr/>
+                                            </div>
+                                        }
+                                </div>
+                                )    
+                        })
+                    }
+                </div>
+                }
             </div>
         )
     }
