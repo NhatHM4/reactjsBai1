@@ -1,5 +1,6 @@
 import React from "react";
 import './DisplayInfor.scss'
+import logo from './../logo.svg'
 
 class DisplayInfo extends React.Component{
 
@@ -33,6 +34,7 @@ class DisplayInfo extends React.Component{
        const listUserNone = this.props.listUsers; 
         return(
             <div className="display-infro-container">
+                <img src={logo}/>
                 <button onClick={()=>this.handleShowUser()}>{this.state.isShowList ? "Ẩn hết" : "Hiện hết"}</button>
                 {
                 this.state.isShowList && <div>
