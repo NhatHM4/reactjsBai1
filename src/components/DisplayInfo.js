@@ -6,6 +6,7 @@ class DisplayInfo extends React.Component{
         isShowList : true,
         listUserState : this.props.listUsers
     }
+
     
     handleShowUser = () =>{
         this.setState({
@@ -27,23 +28,27 @@ class DisplayInfo extends React.Component{
         })
     }
     render(){
-       // destructuring array     
+       // destructuring array  
+       const listUserNone = this.props.listUsers; 
         return(
             <div>
+                
                 <button onClick={()=>this.handleShowUser()}>{this.state.isShowList ? "Ẩn hết" : "Hiện hết"}</button>
                 {
-                    this.state.isShowList && <div>
-                    {
-                    this.state.listUserState.map((user, index)=> {
+
+                this.state.isShowList && <div>
+                    {      
+                    listUserNone.map((user)=> {
+                        console.log(user)
                         return (
                                 <div key = {user.id}>   
-                                        <button onClick={()=>this.handleShowUserElement(index)}>{user.flag ? "Ẩn" : "Hiện"}</button>
+                                        <button onClick={()=>this.handleShowUserElement()}></button>
                                         {
-                                           user.flag && <div className={`${user.age>26?"red":"green"}`} >
-                                            <div>
-                                                My name is {user.name} and my age is {user.age}
-                                            </div>
-                                            <hr/>
+                                            <div className={`${user.age>26?"red":"green"}`} >
+                                                <div>
+                                                    My name is {user.name} and my age is {user.age}
+                                                </div>
+                                                <hr/>
                                             </div>
                                         }
                                 </div>
