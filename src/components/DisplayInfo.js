@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "./DisplayInfor.scss";
 
 const DisplayInfo = (props) => {
@@ -7,7 +7,7 @@ const DisplayInfo = (props) => {
   const handleDeleteUser = (userObject) => {
     props.deleteUser(userObject);
   };
-  
+
   const {listUsers} = props;
   // destructuring array
 
@@ -16,6 +16,14 @@ const DisplayInfo = (props) => {
   const handleOnClickShow= () =>{
     setIsShowListUser(!isShowListUser)
   }
+
+  useEffect( () =>{
+    console.log("useAffect")
+    if (listUsers.length===0){
+        alert("me")
+    }
+  },[listUsers]);
+
 
   return (
     <div className="display-infro-container">
