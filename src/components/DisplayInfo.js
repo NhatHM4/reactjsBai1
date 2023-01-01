@@ -1,102 +1,77 @@
 import React from "react";
-import './DisplayInfor.scss'
-import logo from './../logo.svg'
+import "./DisplayInfor.scss";
+import logo from "./../logo.svg";
 
-class DisplayInfo extends React.Component{
+// class DisplayInfo extends React.Component{
 
-    state = {
-        isShowList : true,
-        listUserState : this.props.listUsers
-    }
+//     handleDeleteUser = (userObject) =>{
+//         this.props.deleteUser(userObject)
+//     }
 
-    
-    handleShowUser = () =>{
-        this.setState({
-            isShowList : !this.state.isShowList
-        })
-    }
+//     render(){
+//        // destructuring array
+//        const listUserNone = this.props.listUsers;
+//         return(
+//             <div className="display-infro-container">
 
-    handleShowUserElement = (indexReal) =>{
-        const changeUser = this.state.listUserState.map((item,index)=>{
-            if (indexReal === index){       
-                 item.flag = !item.flag
-                return item
-            } else {
-                return item;
-            }
-        })
-        this.setState({
-            listUserState : changeUser
-        })
-    }
+//                 {
+//                 true && <div>
+//                     {
+//                     listUserNone.map((user)=> {
+//                         console.log(user)
+//                         return (
+//                                 <div key = {user.id}>
+//                                         <button onClick={()=>this.handleShowUserElement()}></button>
+//                                         {
+//                                             <div className={`${user.age>26?"red":"green"}`} >
+//                                                 <div>
+//                                                     My name is {user.name} and my age is {user.age}
+//                                                     <button onClick={() => this.handleDeleteUser(user)}>X</button>
+//                                                 </div>
+//                                                 <hr/>
+//                                             </div>
+//                                         }
+//                                 </div>
+//                                 )
+//                         })
+//                     }
 
-    handleDeleteUser = (userObject) =>{
-        this.props.deleteUser(userObject)
-    }
+//                 </div>
+//                 }
+//             </div>
+//         )
+//     }
+// }
 
-    componentWillReceiveProps(nextProps) {
-        // You don't have to do this check first, but it can help prevent an unneeded render
-        console.log(nextProps)
-        this.setState({
-        listUserState : nextProps.listUsers
-    })
-      }
-
-    render(){
-       // destructuring array  
-       const listUserNone = this.props.listUsers; 
-        return(
-            <div className="display-infro-container">
-                
-                <button onClick={()=>this.handleShowUser()}>{this.state.isShowList ? "Ẩn hết" : "Hiện hết"}</button>
+const DisplayInfo = (props) => {
+  const handleDeleteUser = (userObject) => {
+    props.deleteUser(userObject);
+  };
+  const listUserNone = props.listUsers;
+  // destructuring array
+  return (
+    <div className="display-infro-container">
+      {true && (
+        <div>
+          {listUserNone.map((user) => {
+            return (
+              <div key={user.id}>
                 {
-                this.state.isShowList && <div>
-                    {/* {      
-                    listUserNone.map((user)=> {
-                        console.log(user)
-                        return (
-                                <div key = {user.id}>   
-                                        <button onClick={()=>this.handleShowUserElement()}></button>
-                                        {
-                                            <div className={`${user.age>26?"red":"green"}`} >
-                                                <div>
-                                                    My name is {user.name} and my age is {user.age}
-                                                    <button onClick={() => this.handleDeleteUser(user)}>X</button>
-                                                </div>
-                                                <hr/>
-                                            </div>
-                                        }
-                                </div>
-                                )    
-                        })
-                    } */}
-                {
-                    this.state.isShowList && <div>
-                    {
-                    this.state.listUserState.map((user, index)=> {
-                        return (
-                                <div key = {user.id}>   
-                                        <button onClick={()=>this.handleShowUserElement(index)}>{user.flag ? "Ẩn" : "Hiện"}</button>
-                                        {
-                                           user.flag && <div className={`${user.age>26?"red":"green"}`} >
-                                                <div>
-                                                    My name is {user.name} and my age is {user.age}
-                                                </div>
-                                                <hr/>
-                                            </div>
-                                        }
-                                </div>
-                                )    
-                        })
-                    }
-                </div>
+                  <div className={`${user.age > 26 ? "red" : "green"}`}>
+                    <div>
+                      My name is {user.name} and my age is {user.age}
+                      <button onClick={() => handleDeleteUser(user)}>X</button>
+                    </div>
+                    <hr />
+                  </div>
                 }
-                    
-                </div>
-                }
-            </div>
-        )
-    }
-}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
 
-export default DisplayInfo
+export default DisplayInfo;
