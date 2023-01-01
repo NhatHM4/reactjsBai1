@@ -16,13 +16,21 @@ class MyComponent extends React.Component {
       })
   }
 
+  deleteUser = (userObject) =>{
+    this.setState({
+      listUsers : this.state.listUsers.filter((item)=>{
+        return item.id !== userObject.id
+      })
+    })
+  }
+
   // JSX
   render() {
     return (
-        <div>
+        <>
             <AddUserInfor addNewUserInfor={this.addNewUserInfor}/>
-            <DisplayInfo listUsers = {this.state.listUsers}/>
-        </div>
+            <DisplayInfo listUsers = {this.state.listUsers} deleteUser = {this.deleteUser}/>
+        </>
     );
   }
 }

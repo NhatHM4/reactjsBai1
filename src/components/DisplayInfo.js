@@ -29,12 +29,16 @@ class DisplayInfo extends React.Component{
             listUserState : changeUser
         })
     }
+
+    handleDeleteUser = (userObject) =>{
+        this.props.deleteUser(userObject)
+    }
     render(){
        // destructuring array  
        const listUserNone = this.props.listUsers; 
         return(
             <div className="display-infro-container">
-                <img src={logo}/>
+                
                 <button onClick={()=>this.handleShowUser()}>{this.state.isShowList ? "Ẩn hết" : "Hiện hết"}</button>
                 {
                 this.state.isShowList && <div>
@@ -48,6 +52,7 @@ class DisplayInfo extends React.Component{
                                             <div className={`${user.age>26?"red":"green"}`} >
                                                 <div>
                                                     My name is {user.name} and my age is {user.age}
+                                                    <button onClick={() => this.handleDeleteUser(user)}>X</button>
                                                 </div>
                                                 <hr/>
                                             </div>
