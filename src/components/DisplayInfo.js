@@ -44,6 +44,7 @@ import logo from "./../logo.svg";
 // }
 
 const DisplayInfo = (props) => {
+    // handleDeleteUser
   const handleDeleteUser = (userObject) => {
     props.deleteUser(userObject);
   };
