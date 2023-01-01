@@ -1,38 +1,34 @@
 import React from "react";
 import DisplayInfo from "./DisplayInfo";
 import AddUserInfor from "./AddUserInfo";
-class MyComponent extends React.Component {
-  
-  state = {
-    listUsers : [
-      { id : 1, name : "NhatHM4" , age : '30', flag : true} ,
-      { id : 2, name : "NhatHM5" , age : '25', flag : true} ,
-      { id : 3, name : "NhatHM6" , age : '26', flag : true} 
-    ]
-  }
-  addNewUserInfor = (userObject)=>{
-    this.setState({
-      listUsers: [userObject,...this.state.listUsers]
-      })
+import { useState } from 'react';
+
+
+const MyComponent = () =>{
+
+  const [listUsers, setListUsers] = useState(
+        [
+          { id : 1, name : "NhatHM4" , age : '30', flag : true} ,
+          { id : 2, name : "NhatHM5" , age : '25', flag : true} ,
+          { id : 3, name : "NhatHM6" , age : '26', flag : true} 
+        ]
+  )
+  const addNewUserInfor = (userObject)=>{
+    setListUsers([userObject, ...listUsers])
   }
 
-  deleteUser = (userObject) =>{
-    this.setState({
-      listUsers : this.state.listUsers.filter((item)=>{
-        return item.id !== userObject.id
-      })
-    })
+  const deleteUser = (userObject) =>{
+    setListUsers(listUsers.filter((item) => item.id !== userObject.id))
+
   }
 
   // JSX
-  render() {
     return (
         <>
-            <AddUserInfor addNewUserInfor={this.addNewUserInfor}/>
-            <DisplayInfo listUsers = {this.state.listUsers} deleteUser = {this.deleteUser}/>
+            <AddUserInfor addNewUserInfor={addNewUserInfor}/>
+            <DisplayInfo listUsers = {listUsers} deleteUser = {deleteUser}/>
         </>
     );
-  }
 }
 
 export default MyComponent;
