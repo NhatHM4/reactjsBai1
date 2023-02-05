@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
+import axios from "axios";
 
-const ModalCreateUser = () => {
-  const [show, setShow] = useState(false);
-
+const ModalCreateUser = (props) => {
+  const { show, setShow } = props;
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -17,19 +17,50 @@ const ModalCreateUser = () => {
   const [previewImage, setPreviewImage] = useState("");
 
   const handleUploadImage = (event) => {
-    if (event.target && event.target.files && event.target.files[0]){
-        setPreviewImage(URL.createObjectURL(event.target.files[0]));
-        setImage(URL.createObjectURL(event.target.files[0]))
+    if (event.target && event.target.files && event.target.files[0]) {
+      setPreviewImage(URL.createObjectURL(event.target.files[0]));
+      setImage(URL.createObjectURL(event.target.files[0]));
     } else {
-        setPreviewImage(null);
+      setPreviewImage(null);
     }
-    
   };
+
+  const handleSubmit = async () => {
+    let data = {
+      email: email,
+      password: password,
+      username: userName,
+      role: role,
+      image: image,
+      createAt: new Date().toLocaleString(),
+    };
+    console.log(data);
+    let res = await axios
+      .post("https://63b28a190d51f5b2972b9419.mockapi.io/Partincipant", data)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    console.log(res);
+
+    // const form = new FormData();
+    // form.append("email", email);
+    // form.append("password", password);
+    // form.append("username", userName);
+    // form.append("role", role);
+    // form.append("image", image);
+    // form.append("createAt", new Date().toLocaleString());
+
+    // axios.post("https://63b28a190d51f5b2972b9419.mockapi.io/Partincipant", form);
+  };
+
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      {/* <Button variant="primary" onClick={handleShow}>
         Launch demo modal
-      </Button>
+      </Button> */}
 
       <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
         <Modal.Header closeButton>
@@ -67,6 +98,7 @@ const ModalCreateUser = () => {
             <div className="col-md-4">
               <label className="form-label">Role</label>
               <select
+                value={role}
                 className="form-select"
                 onChange={(event) => setRole(event.target.value)}
               >
@@ -100,7 +132,7 @@ const ModalCreateUser = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={handleSubmit}>
             Save
           </Button>
         </Modal.Footer>
