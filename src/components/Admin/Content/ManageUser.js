@@ -1,5 +1,5 @@
 import ModalCreateUser from "./ModalCreateUser";
-
+import anh from "../../../assets/bg2.jpg"
 
 const ManageUser = (props) => {
   return (
@@ -10,8 +10,9 @@ const ManageUser = (props) => {
           <button>Add New User</button>
         </div>
         <div>
-          Table user <ModalCreateUser/>
+          Table user
         </div>
+        <ModalCreateUser/>
       </div>
     </div>
   );
