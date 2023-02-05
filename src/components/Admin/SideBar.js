@@ -8,6 +8,7 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
+import { Link, NavLink } from "react-router-dom";
 
 import {
   FaTachometerAlt,
@@ -52,11 +53,15 @@ const SideBar = (props) => {
 
         <SidebarContent>
           <Menu iconShape="circle">
-            <MenuItem icon={<MdDashboard />}>Dashboard</MenuItem>
+            <MenuItem icon={<MdDashboard />}>
+            <NavLink to="/admins" className="nav-link">Dashboard</NavLink>
+              </MenuItem>
           </Menu>
           <Menu iconShape="circle">
             <SubMenu icon ={<FaGem/>} title = "Features">
-              <MenuItem> Quản lí User</MenuItem>
+              <MenuItem>
+                <NavLink to="/admins/manage-users" className="nav-link">Quản Lí User</NavLink>
+              </MenuItem>
               <MenuItem> Quản lí bài Quiz</MenuItem>
               <MenuItem> Quản lí Question</MenuItem>
             </SubMenu>

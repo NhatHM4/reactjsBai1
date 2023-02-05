@@ -9,15 +9,13 @@ const App = () => {
   return (
     <div className="app-container">
       <div className="header-container">
-        <Header/>
+        <Header />
       </div>
       <div className="main-container">
-        <div className="nav-container">
-          
-        </div>
+        <div className="nav-container"></div>
 
         <div className="app-container">
-          <Outlet/>
+          <Outlet />
         </div>
       </div>
     </div>
