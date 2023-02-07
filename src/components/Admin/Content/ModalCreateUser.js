@@ -34,8 +34,8 @@ const ModalCreateUser = (props) => {
       image: image,
       createAt: new Date().toLocaleString(),
     };
-    console.log(data);
-    let res = await axios
+
+   await axios
       .post("https://63b28a190d51f5b2972b9419.mockapi.io/Partincipant", data)
       .then(function (response) {
         console.log(response);
@@ -43,25 +43,10 @@ const ModalCreateUser = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-    console.log(res);
-
-    // const form = new FormData();
-    // form.append("email", email);
-    // form.append("password", password);
-    // form.append("username", userName);
-    // form.append("role", role);
-    // form.append("image", image);
-    // form.append("createAt", new Date().toLocaleString());
-
-    // axios.post("https://63b28a190d51f5b2972b9419.mockapi.io/Partincipant", form);
   };
 
   return (
     <>
-      {/* <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button> */}
-
       <Modal show={show} onHide={handleClose} size="xl" backdrop="static">
         <Modal.Header closeButton>
           <Modal.Title>Add New User</Modal.Title>
