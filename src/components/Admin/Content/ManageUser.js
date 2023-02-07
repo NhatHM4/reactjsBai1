@@ -1,18 +1,21 @@
 import ModalCreateUser from "./ModalCreateUser";
-import anh from "../../../assets/bg2.jpg"
+import { useState } from "react";
 
 const ManageUser = (props) => {
+
+  const [show,setShow] = useState(false);
+
   return (
     <div className="manage-user-container">
       <div className="title">Manage User</div>
       <div className="users-content">
         <div>
-          <button>Add New User</button>
+          <button onClick={()=>setShow(true)}>Add New User</button>
         </div>
         <div>
           Table user
         </div>
-        <ModalCreateUser/>
+        <ModalCreateUser show ={show} setShow={setShow}/>
       </div>
     </div>
   );
