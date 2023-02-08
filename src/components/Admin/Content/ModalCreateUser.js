@@ -1,13 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const ModalCreateUser = (props) => {
   const { show, setShow } = props;
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
+    setEmail("");
+    setPassword("");
+    setUserName("");
+    setImage("");
+    setRole("USER");
+    setPreviewImage("")
+  };
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +33,26 @@ const ModalCreateUser = (props) => {
     }
   };
 
+  const validateEmail = (email) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      );
+  };
+
   const handleSubmit = async () => {
+    const isValidEmail = validateEmail(email);
+    if (!isValidEmail) {
+      toast.error("Invalid Email !!!");
+      return;
+    }
+
+    if (!password) {
+      toast.error("Invalid Password !!!");
+      return;
+    }
+
     let data = {
       email: email,
       password: password,
@@ -34,15 +61,20 @@ const ModalCreateUser = (props) => {
       image: image,
       createAt: new Date().toLocaleString(),
     };
-
-   await axios
+    let res = null;
+    await axios
       .post("https://63b28a190d51f5b2972b9419.mockapi.io/Partincipant", data)
       .then(function (response) {
-        console.log(response);
+        res = response;
       })
       .catch(function (error) {
         console.log(error);
       });
+
+    if (res.status === 201) {
+      toast.success("Create user success !!!");
+      handleClose();
+    }
   };
 
   return (
