@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { FcPlus } from "react-icons/fc";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { postCreateUser } from "../../../service/apiServices";
 
 const ModalCreateUser = (props) => {
   const { show, setShow } = props;
@@ -14,7 +14,7 @@ const ModalCreateUser = (props) => {
     setUserName("");
     setImage("");
     setRole("USER");
-    setPreviewImage("")
+    setPreviewImage("");
   };
 
   const [email, setEmail] = useState("");
@@ -53,23 +53,7 @@ const ModalCreateUser = (props) => {
       return;
     }
 
-    let data = {
-      email: email,
-      password: password,
-      username: userName,
-      role: role,
-      image: image,
-      createAt: new Date().toLocaleString(),
-    };
-    let res = null;
-    await axios
-      .post("https://63b28a190d51f5b2972b9419.mockapi.io/Partincipant", data)
-      .then(function (response) {
-        res = response;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    let res = await postCreateUser(email, password, userName, role, image);
 
     if (res.status === 201) {
       toast.success("Create user success !!!");
