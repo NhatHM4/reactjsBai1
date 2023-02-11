@@ -1,22 +1,41 @@
 import ModalCreateUser from "./ModalCreateUser";
-import anh from "../../../assets/bg2.jpg"
 import { FcPlus } from "react-icons/fc";
 import React, { useState } from "react";
+import TableUser from "./TableUser";
+import { useEffect } from "react";
+import { getAllUser } from "../../../service/apiServices";
 
 const ManageUser = (props) => {
+  const [show, setShow] = useState(false);
+  const [listUsers, setListUser] = useState([]);
+  const fetchdata = async () => {
+    let res = await getAllUser();
+    setListUser(res.data);
+  };
 
-    const [show,setShow] = useState(false)
+  // ComponentDidMount
+  useEffect(() => {
+    fetchdata();
+  }, []);
   return (
     <div className="manage-user-container">
       <div className="title">Manage User</div>
       <div className="users-content">
         <div>
-          <button className="btn btn-primary" onClick={() =>{setShow(true)}}><FcPlus/>Add New User</button>
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              setShow(true);
+            }}
+          >
+            <FcPlus />
+            Add New User
+          </button>
         </div>
         <div>
-          Table user
+          <TableUser listUsers={listUsers} />
         </div>
-        <ModalCreateUser show={show} setShow = {setShow}/>
+        <ModalCreateUser show={show} setShow={setShow} fetchdata={fetchdata} />
       </div>
     </div>
   );
