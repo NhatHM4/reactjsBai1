@@ -5,12 +5,13 @@ import TableUser from "./TableUser";
 import { useEffect } from "react";
 import { getAllUser, getUserById } from "../../../service/apiServices";
 import ModalUpdateUser from "./ModalUpdateUser";
+import ViewUser from "./ViewModal";
 
 const ManageUser = (props) => {
   const [show, setShow] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
+  const [showView, setShowView] = useState(false);
   const [listUsers, setListUser] = useState([]);
-  const [idUserUpdate, setIdUserUpdate] = useState("");
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -30,9 +31,14 @@ const ManageUser = (props) => {
     fechUserById(id);
   };
 
+  const handleView = (id)=>{
+    fechUserById(id);
+    setShowView(true)
+  }
+
   const fechUserById = async (id) => {
     let res = await getUserById(id);
-    setUser({ ...user, ...res.data });
+    setUser(res.data);
   };
 
   // ComponentDidMount
@@ -55,7 +61,7 @@ const ManageUser = (props) => {
           </button>
         </div>
         <div>
-          <TableUser listUsers={listUsers} handleUpdate={handleUpdate} />
+          <TableUser listUsers={listUsers} handleUpdate={handleUpdate} handleView={handleView}/>
         </div>
         <ModalCreateUser show={show} setShow={setShow} fetchdata={fetchdata} />
         <ModalUpdateUser
@@ -64,6 +70,7 @@ const ManageUser = (props) => {
           fetchdata={fetchdata}
           user={user}
         />
+        <ViewUser user={user} show={showView} setShow={setShowView}/>
       </div>
     </div>
   );
