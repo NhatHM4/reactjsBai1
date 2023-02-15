@@ -35,4 +35,8 @@ const putUpdateUser = (id,email, password, userName, role, image) => {
   return axios.put(`/Partincipant/${id}`,data);
 };
 
-export {postCreateUser, getAllUser, getUserById, putUpdateUser}
+const deleteUserById = (id)=>{
+  return axios.delete(`/Partincipant/${id}`);
+}
+
+export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById}

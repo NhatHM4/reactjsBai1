@@ -10,20 +10,13 @@ import {
 } from "react-pro-sidebar";
 import { Link, NavLink } from "react-router-dom";
 
-import {
-  FaTachometerAlt,
-  FaGem,
-  FaList,
-  FaGithub,
-  FaRegLaughWink,
-  FaHeart,
-} from "react-icons/fa";
+import { FaGem, FaGithub } from "react-icons/fa";
 import sidebarBg from "../../assets/bg2.jpg";
 import { MdDashboard } from "react-icons/md";
 import { DiReact } from "react-icons/di";
 
 const SideBar = (props) => {
-  const { image, collapsed, toggled, handleToggleSidebar } = props;
+  const { collapsed, toggled, handleToggleSidebar } = props;
   return (
     <>
       <ProSidebar
@@ -54,13 +47,17 @@ const SideBar = (props) => {
         <SidebarContent>
           <Menu iconShape="circle">
             <MenuItem icon={<MdDashboard />}>
-            <NavLink to="/admins" className="nav-link">Dashboard</NavLink>
-              </MenuItem>
+              <NavLink to="/admins" className="nav-link">
+                Dashboard
+              </NavLink>
+            </MenuItem>
           </Menu>
           <Menu iconShape="circle">
-            <SubMenu icon ={<FaGem/>} title = "Features">
+            <SubMenu icon={<FaGem />} title="Features">
               <MenuItem>
-                <NavLink to="/admins/manage-users" className="nav-link">Quản Lí User</NavLink>
+                <NavLink to="/admins/manage-users" className="nav-link">
+                  Quản Lí User
+                </NavLink>
               </MenuItem>
               <MenuItem> Quản lí bài Quiz</MenuItem>
               <MenuItem> Quản lí Question</MenuItem>

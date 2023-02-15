@@ -5,12 +5,14 @@ import TableUser from "./TableUser";
 import { useEffect } from "react";
 import { getAllUser, getUserById } from "../../../service/apiServices";
 import ModalUpdateUser from "./ModalUpdateUser";
+import ModalDeleteUser from "./ModalDeleteUser";
 import ViewUser from "./ViewModal";
 
 const ManageUser = (props) => {
   const [show, setShow] = useState(false);
   const [showUpdate, setShowUpdate] = useState(false);
   const [showView, setShowView] = useState(false);
+  const [showDelete, setShowDelete] = useState(false);
   const [listUsers, setListUser] = useState([]);
   const [user, setUser] = useState({
     email: "",
@@ -25,6 +27,11 @@ const ManageUser = (props) => {
     let res = await getAllUser();
     setListUser(res.data);
   };
+
+  const handleDelete = (isShow,user)=>{
+    setShowDelete(isShow);
+    setUser(user)
+  }
 
   const handleUpdate = (isUpdate, id) => {
     setShowUpdate(isUpdate);
@@ -61,16 +68,12 @@ const ManageUser = (props) => {
           </button>
         </div>
         <div>
-          <TableUser listUsers={listUsers} handleUpdate={handleUpdate} handleView={handleView}/>
+          <TableUser listUsers={listUsers} handleUpdate={handleUpdate} handleView={handleView} handleDelete={handleDelete}/>
         </div>
         <ModalCreateUser show={show} setShow={setShow} fetchdata={fetchdata} />
-        <ModalUpdateUser
-          show={showUpdate}
-          setShow={setShowUpdate}
-          fetchdata={fetchdata}
-          user={user}
-        />
+        <ModalUpdateUser show={showUpdate} setShow={setShowUpdate} fetchdata={fetchdata} user={user}/>
         <ViewUser user={user} show={showView} setShow={setShowView}/>
+        <ModalDeleteUser show={showDelete} setShowDelete={setShowDelete} user ={user} fetchdata={fetchdata}/>
       </div>
     </div>
   );
