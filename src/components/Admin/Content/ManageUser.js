@@ -7,6 +7,7 @@ import { getAllUser, getUserById } from "../../../service/apiServices";
 import ModalUpdateUser from "./ModalUpdateUser";
 import ModalDeleteUser from "./ModalDeleteUser";
 import ViewUser from "./ViewModal";
+import TableUserPaginate from "./TableUserPaginate";
 
 const ManageUser = (props) => {
   const [show, setShow] = useState(false);
@@ -68,7 +69,8 @@ const ManageUser = (props) => {
           </button>
         </div>
         <div>
-          <TableUser listUsers={listUsers} handleUpdate={handleUpdate} handleView={handleView} handleDelete={handleDelete}/>
+          {/* <TableUser listUsers={listUsers} handleUpdate={handleUpdate} handleView={handleView} handleDelete={handleDelete}/> */}
+          <TableUserPaginate listUsers={listUsers} handleUpdate={handleUpdate} handleView={handleView} handleDelete={handleDelete}/>
         </div>
         <ModalCreateUser show={show} setShow={setShow} fetchdata={fetchdata} />
         <ModalUpdateUser show={showUpdate} setShow={setShowUpdate} fetchdata={fetchdata} user={user}/>
