@@ -8,7 +8,7 @@ const Items = ({ currentItems, handleUpdate, handleView, handleDelete }) => {
         currentItems.map((item, index) => (
           <>
             <tr key={`row-${index}`}>
-              <td>{item.id}</td>
+              <td>{index+1}</td>
               <td>{item.email}</td>
               <td>{item.username}</td>
               <td>{item.role}</td>
@@ -98,7 +98,7 @@ const TableUserPaginate = (props) => {
         </thead>
         <tbody>
           {!(listUsers.length === 0) && (
-            <PaginatedItems itemsPerPage={4} items={listUsers} handleUpdate={handleUpdate} handleView={handleView} handleDelete={handleDelete}  />
+            <PaginatedItems itemsPerPage={6} items={listUsers} handleUpdate={handleUpdate} handleView={handleView} handleDelete={handleDelete}  />
           )}
         </tbody>
       </table>
