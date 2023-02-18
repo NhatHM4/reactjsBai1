@@ -1,16 +1,26 @@
-import React,  {useState} from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { checkLogin } from "../../service/apiServices";
+import { toast } from "react-toastify";
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = (e)=>{
+  const handleSubmit =  async (e) => {
     e.preventDefault();
     let user = {
-        email : email,
-        password : password
+      email: email,
+      password: password,
+    };
+     let result = await checkLogin(user)
+    if (result.EC === 0){
+      toast.success(result.EM);
+      navigate("/")
+    } else {
+      toast.error(result.EM);
     }
+  };
 
-    console.log(user)
-  }
   return (
     <div className="Auth-form-container">
       <form className="Auth-form">
@@ -42,7 +52,18 @@ const Login = () => {
           </div>
           <div className="d-grid gap-2 mt-3">
             <button onClick={handleSubmit} className="btn btn-primary">
-              Submit
+              Login
+            </button>
+          </div>
+          <div>
+            <button
+              className="btn btn-dark"
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              {" "}
+              Back to Home Page
             </button>
           </div>
         </div>

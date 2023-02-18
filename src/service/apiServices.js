@@ -39,4 +39,33 @@ const deleteUserById = (id)=>{
   return axios.delete(`/Partincipant/${id}`);
 }
 
-export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById}
+const checkLogin = async (obj) =>{
+    let res = await getAllUser();
+    
+    return checkObjectContainArr(res.data, obj)
+}
+
+const checkObjectContainArr = (arrayOfObjects, objectToCheck) =>{
+  let objLogin = {
+    DT: {},
+    EC:1,
+    EM:"Login Fail"
+  }
+  arrayOfObjects.some(obj => {
+    const keys = Object.keys(obj);
+   
+    if (keys.length > 3 && keys.includes("email") && keys.includes("password") && obj.email === objectToCheck.email && obj.password === objectToCheck.password){
+      objLogin = {
+        DT: obj,
+        EC: 0,
+        EM: "Login Success"
+      }
+      return true
+    }
+    return false;
+  });
+  
+  return objLogin;
+}
+
+export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById, checkLogin}
