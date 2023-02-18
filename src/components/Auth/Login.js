@@ -62,8 +62,15 @@ const Login = () => {
                 navigate("/");
               }}
             >
-              {" "}
               Back to Home Page
+            </button>
+            <button
+              className="btn btn-info mx-1"
+              onClick={() => {
+                navigate("/register");
+              }}
+            >
+              Register 
             </button>
           </div>
         </div>

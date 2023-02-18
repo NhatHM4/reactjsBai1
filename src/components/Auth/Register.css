@@ -1,0 +1,10 @@
+.input-with-icon {
+    position: relative;
+  }
+  
+  .input-icon {
+    position: absolute;
+    right: 10px;
+    top: 70%;
+    transform: translateY(-50%);
+  }
