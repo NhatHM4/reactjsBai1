@@ -18,7 +18,7 @@ const Register = () => {
       let res = await postCreateUser(email, password, username, "USER", "");
       if (res.status === 201) {
         toast.success("Create user successfully");
-        navigate("/");
+        navigate("/login");
       } else {
         toast.error("Create user fail!!!. Try again");
         reset();
@@ -36,7 +36,7 @@ const Register = () => {
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Register</h3>
           <div className="form-group mt-3">
-            <label>Email address</label>
+            <label>Email address (*)</label>
             <input
               required
               type="email"
@@ -49,7 +49,7 @@ const Register = () => {
             />
           </div>
           <div className="form-group mt-3 input-with-icon">
-            <label>Password</label>
+            <label>Password (*)</label>
             {isShowPassword ? (
               <AiFillEyeInvisible
                 className="input-icon"
