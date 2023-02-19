@@ -2,20 +2,25 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { checkLogin } from "../../service/apiServices";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { doLogin } from "../../redux/action/userAction";
+
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit =  async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let user = {
       email: email,
       password: password,
     };
-     let result = await checkLogin(user)
-    if (result.EC === 0){
+    let result = await checkLogin(user);
+    if (result.EC === 0) {
+      dispatch(doLogin(result));
       toast.success(result.EM);
-      navigate("/")
+      navigate("/");
     } else {
       toast.error(result.EM);
     }
@@ -70,7 +75,7 @@ const Login = () => {
                 navigate("/register");
               }}
             >
-              Register 
+              Register
             </button>
           </div>
         </div>
