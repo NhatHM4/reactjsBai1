@@ -4,7 +4,8 @@ import { checkLogin } from "../../service/apiServices";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { doLogin } from "../../redux/action/userAction";
-
+import "./Register.css";
+import "nprogress/nprogress.css"
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Login = () => {
       email: email,
       password: password,
     };
+
     let result = await checkLogin(user);
     if (result.EC === 0) {
       dispatch(doLogin(result));
@@ -56,7 +58,7 @@ const Login = () => {
             />
           </div>
           <div className="d-grid gap-2 mt-3">
-            <button onClick={handleSubmit} className="btn btn-primary">
+            <button onClick={handleSubmit} className="btn btn-primary" >
               Login
             </button>
           </div>
