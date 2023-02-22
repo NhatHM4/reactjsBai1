@@ -8,13 +8,14 @@ import Login from "./components/Auth/Login";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import Register from "./components/Auth/Register";
+import ListQuiz from "./components/User/ListQuiz";
 const Layout = () => {
   return (
     <>
       <Routes>
         <Route path="/" element={<App />}>
           <Route index element={<HomePage />}></Route>
-          <Route path="users" element={<User />}></Route>
+          <Route path="users" element={<ListQuiz />}></Route>
         </Route>
         <Route path="/admins" element={<Admin />}>
           <Route index element={<DashBoard />}></Route>
