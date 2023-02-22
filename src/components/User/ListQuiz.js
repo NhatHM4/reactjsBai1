@@ -1,4 +1,6 @@
-const ListQuiz = () => {
+import {useState} from "react";
+const ListQuiz = (props) => {
+     const [quizId, setQuizId] = useState(initialState);
   return (
     <>
       <div classNameName="card" style={{width: "18rem"}}>

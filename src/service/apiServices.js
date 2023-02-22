@@ -68,4 +68,8 @@ const checkObjectContainArr = (arrayOfObjects, objectToCheck) =>{
   return objLogin;
 }
 
+const getQuizByUser = (id) =>{
+  return axios.get("/QuizParticitpant")
+}
+
 export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById, checkLogin}
