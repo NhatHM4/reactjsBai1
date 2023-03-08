@@ -1,22 +1,41 @@
-import {useState} from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { getQuizByUser } from "../../service/apiServices";
+import './ListQuiz.scss'
 const ListQuiz = (props) => {
-     const [quizId, setQuizId] = useState(initialState);
+  const [listQuiz, setListQuiz] = useState([]);
+  const user = useSelector((state) => state.userReducer.user);
+  const getListQuiz = async () => {
+    let data = await getQuizByUser(user.id);
+    setListQuiz(data);
+  };
+  useEffect(() => {
+    getListQuiz();
+    console.log(listQuiz);
+  }, []);
   return (
-    <>
-      <div classNameName="card" style={{width: "18rem"}}>
-        <img className="card-img-top" src="..." alt="Card image cap" />
-        <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <p className="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="#" className="btn btn-primary">
-            Go somewhere
-          </a>
-        </div>
-      </div>
-    </>
+    <div className="list-quiz container">
+      {listQuiz.map((obj,index) => {
+        return (
+          
+            <div key={`${index}-quiz`} className="card" style={{ width: "18rem" }}>
+              <img
+                className="card-img-top"
+                src={obj.avatar}
+                alt="Card image cap"
+              />
+              <div className="card-body">
+                <h5 className="card-title">{obj.name}</h5>
+                <p className="card-text">{obj.Decription}</p>
+                <button className="btn btn-primary">
+                  Go somewhere
+                </button>
+              </div>
+            </div>
+          
+        );
+      })}
+    </div>
   );
 };
 

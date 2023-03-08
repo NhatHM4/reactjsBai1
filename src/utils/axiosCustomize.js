@@ -3,7 +3,7 @@ import NProgress from 'nprogress'
 
 
 const instance = axios.create({
-  baseURL: "https://63b28a190d51f5b2972b9419.mockapi.io",
+  baseURL: "https://",
 });
 
 // Add a request interceptor

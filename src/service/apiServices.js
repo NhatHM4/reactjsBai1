@@ -10,16 +10,16 @@ const postCreateUser = (email, password, userName, role, image) => {
     createAt: new Date().toLocaleString(),
   };
 
-  return axios.post("/Partincipant",data);
+  return axios.post("63b28a190d51f5b2972b9419.mockapi.io/Partincipant",data);
 };
 
 
 const getAllUser = ()=>{
-  return axios.get("/Partincipant");
+  return axios.get("63b28a190d51f5b2972b9419.mockapi.io/Partincipant");
 }
 
 const getUserById = (id)=>{
-  return axios.get(`/Partincipant/${id}`);
+  return axios.get(`63b28a190d51f5b2972b9419.mockapi.io/Partincipant/${id}`);
 }
 
 const putUpdateUser = (id,email, password, userName, role, image) => {
@@ -32,11 +32,11 @@ const putUpdateUser = (id,email, password, userName, role, image) => {
     createAt: new Date().toLocaleString(),
   };
 
-  return axios.put(`/Partincipant/${id}`,data);
+  return axios.put(`63b28a190d51f5b2972b9419.mockapi.io/Partincipant/${id}`,data);
 };
 
 const deleteUserById = (id)=>{
-  return axios.delete(`/Partincipant/${id}`);
+  return axios.delete(`63b28a190d51f5b2972b9419.mockapi.io/Partincipant/${id}`);
 }
 
 const checkLogin = async (obj) =>{
@@ -68,8 +68,9 @@ const checkObjectContainArr = (arrayOfObjects, objectToCheck) =>{
   return objLogin;
 }
 
-const getQuizByUser = (id) =>{
-  return axios.get("/QuizParticitpant")
+const getQuizByUser = async(id) =>{
+  let res = await axios.get(`63b28a190d51f5b2972b9419.mockapi.io/ParticipantQuiz`);
+  return res.data.filter(obj => obj.ParticipantID === id)
 }
 
-export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById, checkLogin}
+export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById, checkLogin, getQuizByUser}
