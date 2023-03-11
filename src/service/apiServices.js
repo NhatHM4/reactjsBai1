@@ -78,4 +78,9 @@ const getQuestionByQuizId = async(id) =>{
   return res.data.filter(obj => obj.QuizId===id)
 }
 
-export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById, checkLogin, getQuizByUser, getQuestionByQuizId}
+const getAllAnswer = async() =>{
+  let res = await axios.get(`640c345094ce1239b0a7b46c.mockapi.io/answer/answer`);
+  return res.data;
+}
+
+export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById, checkLogin, getQuizByUser, getQuestionByQuizId, getAllAnswer}

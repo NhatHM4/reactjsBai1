@@ -28,7 +28,7 @@ const ListQuiz = (props) => {
               <div className="card-body">
                 <h5 className="card-title">{obj.name}</h5>
                 <p className="card-text">{obj.Decription}</p>
-                <button className="btn btn-primary" onClick={()=>{navigate(`/quiz/${obj.quizId}`)}}>
+                <button className="btn btn-primary" onClick={()=>{navigate(`/quiz/${obj.quizId}`, { state: { quizTitle: obj.name } })}}>
                   Go somewhere
                 </button>
               </div>
