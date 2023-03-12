@@ -2,25 +2,25 @@ import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { getQuestionByQuizId, getAllAnswer } from "../../service/apiServices";
 import "./DetaiQuiz.scss";
+import Question from "./Question";
 const DetailQuiz = () => {
   const param = useParams();
   const quizid = param.id;
   const location = useLocation();
   const [listQuestion, setListQuestion] = useState([]);
+  const [currentQuestion, setCurrentQuestion] = useState(0)
+  const [item, setItem] = useState({})
   useEffect(() => {
     sumUpQuestion();
   }, [quizid]);
 
-  // const fetchListQuestion = async()=>{
-  //     let data = await getQuestionByQuizId(quizid)
-  //     setListQuestion(data)
-  // }
 
   const sumUpQuestion = async () => {
     let arrQues = await getQuestionByQuizId(quizid);
     let arrAns = await getAllAnswer();
     let result = mergeQuestion(arrQues, arrAns);
-    setListQuestion(result);
+    setListQuestion(result)
+    setItem(result[currentQuestion]);
   };
 
   const mergeQuestion = (arrQues, arrAns) => {
@@ -41,6 +41,24 @@ const DetailQuiz = () => {
     return arr3;
   };
 
+  const handleNext = ()=>{
+    if (currentQuestion===listQuestion.length-1){
+      setCurrentQuestion(listQuestion.length-1)
+    } else {
+      setCurrentQuestion(currentQuestion+1)
+      setItem(listQuestion[currentQuestion+1]);
+    }
+  }
+
+  const handlePrevious = ()=>{
+    if (currentQuestion===0){
+      setCurrentQuestion(0)
+    } else {
+      setCurrentQuestion(currentQuestion-1)
+      setItem(listQuestion[currentQuestion-1]);
+    }
+  }
+  console.log(item)
   return (
     <div className="detail-quiz-container">
       <div className="left-content">
@@ -48,34 +66,10 @@ const DetailQuiz = () => {
           Quiz-{quizid}: {location?.state?.quizTitle}
           <hr />
         </div>
-        {listQuestion.map((item, index) => {
-          return (
-            <div key={`q+${index}`}>
-              <div className="q-body">
-                <img src={item.question.avatar} />
-              </div>
-              <div className="q-content">
-                <div className="question">Q-{index}: {item.question.name}</div>
-                {console.log(item.answer)}
-                <div className="answer">
-                    
-                        <div key={`a-${index}`}> {item.answer.map((ite,index)=>{
-                            return (
-                                <div className="a-chlid">{index}.{ite.answer}</div>
-                            )
-                        })}
-                        </div>
-                    
-                  
-                </div>
-              </div>
-            </div>
-          );
-        })}
-
+        <Question item={item} questionNumber={currentQuestion}/>
         <div className="footer">
-          <button>Prev</button>
-          <button>Next</button>
+          <button className="btn btn-primary" onClick={()=>{handlePrevious()}}>Prev</button>
+          <button className="btn btn-dark" onClick={()=>{handleNext()}}>Next</button>
         </div>
       </div>
       <div className="right-content">count down</div>
