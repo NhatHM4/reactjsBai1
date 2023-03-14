@@ -82,7 +82,7 @@ const DetailQuiz = () => {
           Quiz-{quizid}: {location?.state?.quizTitle}
           <hr />
         </div>
-        <Question item={listQuestion ? listQuestion[currentQuestion] :{} } questionNumber={currentQuestion} handleOnChangeCheckBox={handleOnChangeCheckBox}/>
+        <Question item={listQuestion && listQuestion.length>0 ? listQuestion[currentQuestion] :{} } questionNumber={currentQuestion} handleOnChangeCheckBox={handleOnChangeCheckBox}/>
         <div className="footer">
           <button className="btn btn-primary" onClick={()=>{handlePrevious()}}>Prev</button>
           <button className="btn btn-dark" onClick={()=>{handleNext()}}>Next</button>
