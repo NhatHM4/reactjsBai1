@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { getQuestionByQuizId, getAllAnswer } from "../../service/apiServices";
+import { getQuestionByQuizId, getAllAnswer, postQuesAnsQuizPart } from "../../service/apiServices";
 import "./DetaiQuiz.scss";
 import Question from "./Question";
 import _ from "lodash"
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 const DetailQuiz = () => {
+  const user = useSelector(state => state.userReducer.user);
   const param = useParams();
   const quizid = param.id;
   const location = useLocation();
@@ -75,6 +78,34 @@ const DetailQuiz = () => {
     }
 
   }
+
+  const handleFinish = async()=>{
+    let arr = []
+    for (let index = 0; index < listQuestion.length; index++) {
+      let str1 = [];
+      listQuestion[index].answer.filter((ans)=>{
+        
+        if (ans.isSelected===true){
+          str1.push(ans.id)
+        }
+        return ans
+      })
+
+      arr.push({
+        questionId: listQuestion[index].question.id,
+        answer : str1.join(","),
+        quizId: listQuestion[index].question.QuizId
+      })  
+    }
+    for (let index = 0; index < arr.length; index++) {
+      let res = await postQuesAnsQuizPart(arr[index].questionId,arr[index].answer,arr[index].quizId,user.id)
+      if (res){
+        toast.success("success");
+      }
+    }
+  }
+
+
   return (
     <div className="detail-quiz-container">
       <div className="left-content">
@@ -86,7 +117,7 @@ const DetailQuiz = () => {
         <div className="footer">
           <button className="btn btn-primary" onClick={()=>{handlePrevious()}}>Prev</button>
           <button className="btn btn-dark" onClick={()=>{handleNext()}}>Next</button>
-          <button className="btn btn-warning" onClick={()=>{handleNext()}}>Finish</button>
+          <button className="btn btn-warning" onClick={()=>{handleFinish()}}>Finish</button>
         </div>
       </div>
       <div className="right-content">count down</div>

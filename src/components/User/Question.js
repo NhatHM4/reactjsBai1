@@ -6,7 +6,6 @@ const Question = (props) => {
     handleOnChangeCheckBox(e.target.checked,questionId, answerId)
     item.isSelected = e.target.checked
   }
-  console.log(item)
   return (
     <>
       {!(Object.keys(item).length === 0) && (

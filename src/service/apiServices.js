@@ -83,4 +83,16 @@ const getAllAnswer = async() =>{
   return res.data;
 }
 
-export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById, checkLogin, getQuizByUser, getQuestionByQuizId, getAllAnswer}
+const postQuesAnsQuizPart = (QuestionsId, Answer, QuizId, ParticipantId) => {
+  let data = {
+    CreateAt: new Date().toLocaleString(),
+    QuestionsId: QuestionsId,
+    Answer: Answer,
+    QuizId: QuizId,
+    ParticipantId: ParticipantId,
+   }
+
+  return axios.post("640c345094ce1239b0a7b46c.mockapi.io/answer/QuesAnsQuizParti",data);
+};
+
+export {postCreateUser, getAllUser, getUserById, putUpdateUser, deleteUserById, checkLogin, getQuizByUser, getQuestionByQuizId, getAllAnswer, postQuesAnsQuizPart }
